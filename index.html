@@ -7,17 +7,37 @@
     <link rel="stylesheet" href="./assests/css/styles.css" />
 </head>
 <body>
+    <div class="time">
+        <h2 id="timer"></h2>
+    </div>
     <div class="container">
-        <header>
+        <header id="start-title">
             <h1>JavaScript Coding Quiz</h1>
         </header>
-        <div class="question-text">
+        <div id="start-text">
             <p>
                 This quiz is to test your knowledge on JS so far! You have 1 minute! Good luck!
             </p>
         </div>
-        <div class="btn">
-            <button class="begin-quiz" type="submit">Begin Quiz</button>
+        <!--For questions-->
+        <div id="question-container" class="hide">
+         <div id="question">
+             <h3>Questions</h3>
+         </div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+             </div>
+        </div>
+        <div id="controls" class="btn-grid">
+            <button id="view-scores" class="view-btn btn hide">View Scores</button>
+            <button id="next-button" class="next-btn btn hide">Next</button>
+        </div>
+        <!--Begin Quiz Button-->
+        <div class="begin-btn">
+            <button id="begin-quiz" type="submit">Begin Quiz</button>
         </div>
     </div>
     <script src="./assests/js/script.js"></script>
