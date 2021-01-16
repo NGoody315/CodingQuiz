@@ -73,7 +73,7 @@ function displayMessage(){
 }
 
 //Timer
-var timeLeft = 60;
+var timeLeft = 30;
 
 function countdown() {
   
@@ -83,9 +83,11 @@ function countdown() {
         if (timeLeft < 0) {
             clearInterval(timeInterval);
             displayMessage();
+            viewScoresEl.classList.add('hide')
             questionContainerEl.classList.add('hide')
             restartButtonEl.classList.remove('hide')
             endGameButton.classList.add('hide')
+            highScoreContainer.classList.remove('hide')
         }
     }, 1000);
 }
@@ -135,6 +137,7 @@ function setNextQuestion() {
 //Reset State of Questions
 function resetState() {
     nextButtonEl.classList.add('hide')
+    highScoreContainer.classList.add('hide')
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild(answerButtonsEl.firstChild)
     }
@@ -206,6 +209,7 @@ function hsMessage(){
 //End Game & View High Scores
 function viewHighScore (){
     questionContainerEl.classList.add('hide')
+    viewScoresEl.classList.add('hide')
     restartButtonEl.classList.remove('hide')
     nextButtonEl.classList.add('hide')
     timeLeft = 0;
