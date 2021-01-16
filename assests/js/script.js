@@ -56,21 +56,32 @@ const questions = [
 
 //Event Listeners
 beginQuiz.addEventListener("click", startGame);
+nextButtonEl.addEventListener("click", ()=> {
+    currentQuestionIndex++
+    setNextQuestion();
+})
+//viewScoresEl.addEventListener("click",)
+
+//Timer Display Message
+function displayMessage(){
+    document.getElementById('timer').innerHTML="TIME'S UP!"
+}
 
 //Timer
 function countdown() {
-    var timeLeft = 60;
+    var timeLeft = 10;
     
     var timeInterval = setInterval(function() {
         document.getElementById("timer").innerHTML="00: " + timeLeft;
         timeLeft--;
         if (timeLeft < 0) {
             clearInterval(timeInterval);
-
-            displayMessage("Time's Up!")
-            console.log(timeLeft);
+            displayMessage();
+            questionContainerEl.classList.add('hide')
+            beginQuiz.innerText = "Restart"
+            beginQuiz.classList.remove('hide')
         }
-    }, 1000);
+    }, 200);
 }
 
 //Start Game
@@ -90,8 +101,10 @@ function startGame() {
 
     setNextQuestion();
     countdown();
+    scoreCounter = 0;
 }
 
+//Shows Questions on Screen
 function showQuestion (questions) {
     questionEl.innerText = questions.q
     questions.a.forEach(a => {
@@ -108,14 +121,52 @@ function showQuestion (questions) {
 
 //Next Question
 function setNextQuestion() {
+    resetState();
     showQuestion(shuffledQuestions[currentQuestionIndex])
 }
 
+//Reset State of Questions
+function resetState() {
+    nextButtonEl.classList.add('hide')
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild(answerButtonsEl.firstChild)
+    }
+}
 
 //Select Answer
-function selectAnswer (){
-
+function selectAnswer (e){
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerButtonsEl.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+    if (shuffledQuestions.length > currentQuestionIndex + 1){
+    nextButtonEl.classList.remove('hide')
+    } else {
+        beginQuiz.innerText = "Restart"
+        beginQuiz.classList.remove('hide')
+    }
+    if (selectedButton.dataset = correct){
+        scoreCounter++;
+    }
 }
+
+//Sets the correct answers to be correct
+function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct){
+        element.classList.add('correct')
+    } else {
+        element.classList.add('wrong')
+    }
+}
+
+function clearStatusClass(element) {
+    element.classList.remove ('correct')
+    element.classList.remove('wrong')
+}
+
 //View High Scores
 function viewHighScore (){
 
