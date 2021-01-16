@@ -8,6 +8,9 @@ const questionEl = document.getElementById("question");
 const answerButtonsEl = document.getElementById("answer-buttons");
 const nextButtonEl = document.getElementById('next-button');
 const viewScoresEl = document.getElementById('view-scores');
+const restartButtonEl = document.getElementById('restart-button');
+const endGameButton = document.getElementById("endgame-button");
+const highScoreContainer = document.getElementById('high-score-container');
 var scoreCounter = 0;
 
 let shuffledQuestions, currentQuestionIndex
@@ -60,7 +63,8 @@ nextButtonEl.addEventListener("click", ()=> {
     currentQuestionIndex++
     setNextQuestion();
 })
-//viewScoresEl.addEventListener("click",)
+viewScoresEl.addEventListener("click", viewHighScore)
+restartButtonEl.addEventListener("click", startGame)
 
 //Timer Display Message
 function displayMessage(){
@@ -68,9 +72,10 @@ function displayMessage(){
 }
 
 //Timer
+var timeLeft = 60;
+
 function countdown() {
-    var timeLeft = 10;
-    
+  
     var timeInterval = setInterval(function() {
         document.getElementById("timer").innerHTML="00: " + timeLeft;
         timeLeft--;
@@ -78,10 +83,10 @@ function countdown() {
             clearInterval(timeInterval);
             displayMessage();
             questionContainerEl.classList.add('hide')
-            beginQuiz.innerText = "Restart"
-            beginQuiz.classList.remove('hide')
+            restartButtonEl.classList.remove('hide')
+            endGameButton.classList.add('hide')
         }
-    }, 200);
+    }, 1000);
 }
 
 //Start Game
@@ -144,11 +149,14 @@ function selectAnswer (e){
     if (shuffledQuestions.length > currentQuestionIndex + 1){
     nextButtonEl.classList.remove('hide')
     } else {
-        beginQuiz.innerText = "Restart"
-        beginQuiz.classList.remove('hide')
-    }
+        endGameButton.classList.remove('hide')}
+        //timeLeft = how to freeze time?;
+    
     if (selectedButton.dataset = correct){
         scoreCounter++;
+        console.log(scoreCounter)
+    } else {
+        timeLeft-=5;
     }
 }
 
@@ -167,9 +175,25 @@ function clearStatusClass(element) {
     element.classList.remove('wrong')
 }
 
+//Restart Game
+// function restartGame() {
+//     startGame();
+// }
+
+//End Game
+
+function endGame() {
+    questionContainerEl.classList.add('hide')
+    highScoreContainer.classList.remove('hide')
+}
+
 //View High Scores
 function viewHighScore (){
-
+    questionContainerEl.classList.add('hide')
+    restartButtonEl.classList.remove('hide')
+    nextButtonEl.classList.add('hide')
+    timeLeft = 0;
+  var playerScore = localStorage.getItem('score')
 
 }
 
