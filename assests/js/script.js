@@ -10,7 +10,7 @@ const nextButtonEl = document.getElementById('next-button');
 const viewScoresEl = document.getElementById('view-scores');
 const restartButtonEl = document.getElementById('restart-button');
 const endGameButton = document.getElementById("endgame-button");
-const highScoreContainer = document.getElementById('high-score-container');
+const highScoreContainer = document.getElementById('hs-container');
 var scoreCounter = 0;
 
 let shuffledQuestions, currentQuestionIndex
@@ -64,7 +64,8 @@ nextButtonEl.addEventListener("click", ()=> {
     setNextQuestion();
 })
 viewScoresEl.addEventListener("click", viewHighScore)
-restartButtonEl.addEventListener("click", startGame)
+restartButtonEl.addEventListener("click", resetGame)
+endGameButton.addEventListener("click", viewHighScore)
 
 //Timer Display Message
 function displayMessage(){
@@ -88,6 +89,7 @@ function countdown() {
         }
     }, 1000);
 }
+
 
 //Start Game
 function startGame() {
@@ -149,12 +151,12 @@ function selectAnswer (e){
     if (shuffledQuestions.length > currentQuestionIndex + 1){
     nextButtonEl.classList.remove('hide')
     } else {
-        endGameButton.classList.remove('hide')}
+        endGameButton.classList.remove('hide')
+        }
         //timeLeft = how to freeze time?;
     
     if (selectedButton.dataset = correct){
         scoreCounter++;
-        console.log(scoreCounter)
     } else {
         timeLeft-=5;
     }
@@ -176,23 +178,40 @@ function clearStatusClass(element) {
 }
 
 //Restart Game
-// function restartGame() {
-//     startGame();
-// }
+function resetGame() {
+    beginQuiz.classList.add('hide')
+    startTextEl.classList.add('hide')
+    startTitleEL.classList.add('hide')
+    shuffledQuestions = questions.sort(()=> Math.random() - .5)
+    currentQuestionIndex = 0
+    questionContainerEl.classList.remove('hide')
+    viewScoresEl.classList.remove('hide')
+    nextButtonEl.classList.remove('hide')
 
-//End Game
-
-function endGame() {
-    questionContainerEl.classList.add('hide')
-    highScoreContainer.classList.remove('hide')
+    setNextQuestion();
+    countdown();
+    scoreCounter = 0;
 }
 
-//View High Scores
+//Set High Score
+function setHighScore(){
+
+}
+
+//High Score Message
+function hsMessage(){
+    document.getElementById('hs-container').innerHTML="Your Score: " + scoreCounter;
+}
+
+//End Game & View High Scores
 function viewHighScore (){
     questionContainerEl.classList.add('hide')
     restartButtonEl.classList.remove('hide')
     nextButtonEl.classList.add('hide')
     timeLeft = 0;
+    highScoreContainer.classList.remove('hide')
+
+    hsMessage();
   var playerScore = localStorage.getItem('score')
 
 }
