@@ -73,14 +73,14 @@ function displayMessage(){
 }
 
 //Timer
-var timeLeft = 30;
+var timeLeft = 31;
 
 function countdown() {
   
     var timeInterval = setInterval(function() {
         document.getElementById("timer").innerHTML="00: " + timeLeft;
         timeLeft--;
-        if (timeLeft < 0) {
+        if (timeLeft < 1) {
             clearInterval(timeInterval);
             displayMessage();
             viewScoresEl.classList.add('hide')
@@ -88,6 +88,9 @@ function countdown() {
             restartButtonEl.classList.remove('hide')
             endGameButton.classList.add('hide')
             highScoreContainer.classList.remove('hide')
+        } else if (timeLeft < 0) {
+            clearInterval(timeInterval);
+            displayMessage();
         }
     }, 1000);
 }
@@ -215,7 +218,7 @@ function viewHighScore (){
     timeLeft = 0;
     highScoreContainer.classList.remove('hide')
 
-    hsMessage();
+    //hsMessage();
   var playerScore = localStorage.getItem('score')
 
 }
