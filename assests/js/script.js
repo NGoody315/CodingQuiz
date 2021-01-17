@@ -8,7 +8,7 @@ const questionEl = document.getElementById("question");
 const answerButtonsEl = document.getElementById("answer-buttons");
 const nextButtonEl = document.getElementById('next-button');
 const viewScoresEl = document.getElementById('view-scores');
-const restartButtonEl = document.getElementById('restart-button');
+// const restartButtonEl = document.getElementById('restart-button');
 const endGameButton = document.getElementById("endgame-button");
 const highScoreContainer = document.getElementById('hs-container');
 var scoreCounter = 0;
@@ -64,8 +64,8 @@ nextButtonEl.addEventListener("click", ()=> {
     setNextQuestion();
 })
 viewScoresEl.addEventListener("click", viewHighScore)
-restartButtonEl.addEventListener("click", resetGame)
-endGameButton.addEventListener("click", viewHighScore)
+// restartButtonEl.addEventListener("click", resetGame)
+endGameButton.addEventListener("click", endGame)
 
 //Timer Display Message
 function displayMessage(){
@@ -85,12 +85,10 @@ function countdown() {
             displayMessage();
             viewScoresEl.classList.add('hide')
             questionContainerEl.classList.add('hide')
-            restartButtonEl.classList.remove('hide')
+            //restartButtonEl.classList.remove('hide')
             endGameButton.classList.add('hide')
             highScoreContainer.classList.remove('hide')
-        } else if (timeLeft < 0) {
-            clearInterval(timeInterval);
-            displayMessage();
+            viewHighScore();
         }
     }, 1000);
 }
@@ -159,7 +157,6 @@ function selectAnswer (e){
     } else {
         endGameButton.classList.remove('hide')
         }
-        //timeLeft = how to freeze time?;
     
     if (selectedButton.dataset = correct){
         scoreCounter++;
@@ -184,20 +181,20 @@ function clearStatusClass(element) {
 }
 
 //Restart Game
-function resetGame() {
-    beginQuiz.classList.add('hide')
-    startTextEl.classList.add('hide')
-    startTitleEL.classList.add('hide')
-    shuffledQuestions = questions.sort(()=> Math.random() - .5)
-    currentQuestionIndex = 0
-    questionContainerEl.classList.remove('hide')
-    viewScoresEl.classList.remove('hide')
-    nextButtonEl.classList.remove('hide')
+// function resetGame() {
+//     beginQuiz.classList.add('hide')
+//     startTextEl.classList.add('hide')
+//     startTitleEL.classList.add('hide')
+//     shuffledQuestions = questions.sort(()=> Math.random() - .5)
+//     currentQuestionIndex = 0
+//     questionContainerEl.classList.remove('hide')
+//     viewScoresEl.classList.remove('hide')
+//     nextButtonEl.classList.remove('hide')
 
-    setNextQuestion();
-    countdown();
-    scoreCounter = 0;
-}
+//     setNextQuestion();
+//     countdown();
+//     scoreCounter = 0;
+// }
 
 //Set High Score
 function setHighScore(){
@@ -209,17 +206,21 @@ function hsMessage(){
     document.getElementById('hs-container').innerHTML="Your Score: " + scoreCounter;
 }
 
-//End Game & View High Scores
+//End Game 
+function endGame(){
+    timeLeft=1;
+};
+
+//Submit High Score
+
+//View High Score
 function viewHighScore (){
     questionContainerEl.classList.add('hide')
-    viewScoresEl.classList.add('hide')
-    restartButtonEl.classList.remove('hide')
+    viewScoresEl.classList.remove('hide')
+    //restartButtonEl.classList.remove('hide')
     nextButtonEl.classList.add('hide')
-    timeLeft = 0;
     highScoreContainer.classList.remove('hide')
-
-    //hsMessage();
-  var playerScore = localStorage.getItem('score')
-
+ 
+    hsMessage();
 }
 
