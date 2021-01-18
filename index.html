@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./assests/css/styles.css" />
 </head>
 <body>
+    <!--Timer-->
     <div class="time" id="timer">Timer</div>
     <div class="container">
         <header id="start-title">
@@ -17,15 +18,20 @@
                 This quiz is to test your knowledge on JS so far! You have 1 minute! Good luck!
             </p>
         </div>
-            <div id="hs-container" class="hide">
+        <!--High Score Container-->
+            <div id="hs-container" class="hide"></div>
+            <div class="hide" id="hs-chart">
              <label for="high-score"></label>
               <input
-                type="high-score-chart"
-                name="high-score-chart"
-                id="high-score-chart"
+                type="high-score"
+                name="high-score"
+                id="high-score"
                 placeholder="Enter Initials Here"
               />
-            <button class="save-btn" id="save-button">Save</button>
+            <button class="save-btn btn" id="save-button">Save</button>
+            </div>
+            <div class="high-score-chart hide" id="high-score-chart">
+                <p><span id="high-score-input"></span></p>
             </div>
         <!--For questions-->
         <div id="question-container" class="hide">
@@ -40,14 +46,13 @@
         <div id="controls" class="btn-grid">
             <button id="view-scores" class="view-btn btn hide">View Scores</button>
             <button id="next-button" class="next-btn btn hide">Next</button>
-            <button id="restart-button" class="restart-btn btn hide">Restart</button>
+            <button id="enter-score-button" class="enter-btn btn hide">Enter Score</button>
             <button id="endgame-button" class="end-btn btn hide">End Game</button>
         </div>
         <!--Begin Quiz Button-->
         <div class="begin-btn">
             <button id="begin-quiz" type="submit">Begin Quiz</button>
         </div>
-        <!--High Score Page-->
     </div>
     <script src="./assests/js/script.js"></script>
 </body>

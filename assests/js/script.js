@@ -8,9 +8,12 @@ const questionEl = document.getElementById("question");
 const answerButtonsEl = document.getElementById("answer-buttons");
 const nextButtonEl = document.getElementById('next-button');
 const viewScoresEl = document.getElementById('view-scores');
-// const restartButtonEl = document.getElementById('restart-button');
+const enterScoreButtonEl = document.getElementById('enter-score-button');
 const endGameButton = document.getElementById("endgame-button");
 const highScoreContainer = document.getElementById('hs-container');
+const inputScoreEl = document.getElementById("hs-chart");
+const saveButtonEl = document.getElementById("save-button");
+const highScoreChartEl = document.getElementById("high-score-chart");
 var scoreCounter = 0;
 
 let shuffledQuestions, currentQuestionIndex
@@ -63,9 +66,24 @@ nextButtonEl.addEventListener("click", ()=> {
     currentQuestionIndex++
     setNextQuestion();
 })
-viewScoresEl.addEventListener("click", viewHighScore)
-// restartButtonEl.addEventListener("click", resetGame)
-endGameButton.addEventListener("click", endGame)
+viewScoresEl.addEventListener("click", seeScore)
+enterScoreButtonEl.addEventListener("click", viewHighScore)
+endGameButton.addEventListener("click", seeScore)
+
+//Save Button Event Listener
+saveButtonEl.addEventListener('click',function(event){
+    event.preventDefault();
+   
+    var scoreInput = document.querySelector('#high-score').value;
+
+    if (scoreInput === '') {
+        alert("Please type your initials!")
+    };
+    localStorage.setItem('score', scoreInput);
+    
+    renderLastScoreInput();
+
+})
 
 //Timer Display Message
 function displayMessage(){
@@ -85,10 +103,10 @@ function countdown() {
             displayMessage();
             viewScoresEl.classList.add('hide')
             questionContainerEl.classList.add('hide')
-            //restartButtonEl.classList.remove('hide')
+            enterScoreButtonEl.classList.remove('hide')
             endGameButton.classList.add('hide')
             highScoreContainer.classList.remove('hide')
-            viewHighScore();
+            seeScore();
         }
     }, 1000);
 }
@@ -180,47 +198,42 @@ function clearStatusClass(element) {
     element.classList.remove('wrong')
 }
 
-//Restart Game
-// function resetGame() {
-//     beginQuiz.classList.add('hide')
-//     startTextEl.classList.add('hide')
-//     startTitleEL.classList.add('hide')
-//     shuffledQuestions = questions.sort(()=> Math.random() - .5)
-//     currentQuestionIndex = 0
-//     questionContainerEl.classList.remove('hide')
-//     viewScoresEl.classList.remove('hide')
-//     nextButtonEl.classList.remove('hide')
-
-//     setNextQuestion();
-//     countdown();
-//     scoreCounter = 0;
-// }
 
 //Set High Score
-function setHighScore(){
+function renderLastScoreInput(){
+    highScoreChartEl.classList.remove("hide");
+    var scoreInput = localStorage.getItem("score");
+    highScoreChartEl.textContent = scoreInput + " : " + scoreCounter;
 
 }
 
-//High Score Message
-function hsMessage(){
-    document.getElementById('hs-container').innerHTML="Your Score: " + scoreCounter;
-}
 
 //End Game 
 function endGame(){
-    timeLeft=1;
+    seeScore();
 };
 
-//Submit High Score
+
+//See Score
+function seeScore (){
+    questionContainerEl.classList.add('hide')
+    viewScoresEl.classList.add('hide')
+    enterScoreButtonEl.classList.remove('hide')
+    nextButtonEl.classList.add('hide')
+    highScoreContainer.classList.remove('hide')
+    function hsMessage(){
+        document.getElementById('hs-container').innerHTML="Your Score: " + scoreCounter;
+        }
+    timeLeft=1;
+    hsMessage();
+}
 
 //View High Score
 function viewHighScore (){
     questionContainerEl.classList.add('hide')
-    viewScoresEl.classList.remove('hide')
-    //restartButtonEl.classList.remove('hide')
+    viewScoresEl.classList.add('hide')
+    enterScoreButtonEl.classList.add('hide')
     nextButtonEl.classList.add('hide')
     highScoreContainer.classList.remove('hide')
- 
-    hsMessage();
+    inputScoreEl.classList.remove('hide')
 }
-

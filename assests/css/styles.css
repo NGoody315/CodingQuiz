@@ -124,6 +124,39 @@ body {
     padding: 10px;
 }
 
+#high-score-chart {
+    max-width: 100%;
+    width: 900x;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px 2px black;
+    color: black;
+}
+
+#high-score-chart h2 {
+    grid-column: span 2;
+    background-color: purple;
+    border: 2px solid black;
+    color: white;
+    padding: .5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1rem;
+    text-align: center;
+}
+
+#high-score-input {
+    grid-column: span 2;
+    background-color: purple;
+    border: 2px solid black;
+    color: white;
+    padding: .5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
 .hide {
     display: none;
 }
