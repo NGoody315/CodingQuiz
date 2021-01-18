@@ -74,7 +74,7 @@ endGameButton.addEventListener("click", seeScore)
 saveButtonEl.addEventListener('click',function(event){
     event.preventDefault();
    
-    var scoreInput = document.querySelector('#high-score').value + scoreCounter;
+    var scoreInput = document.querySelector('#high-score').value;
 
     if (scoreInput === '') {
         alert("Please type your initials!")
@@ -203,7 +203,7 @@ function clearStatusClass(element) {
 function renderLastScoreInput(){
     highScoreChartEl.classList.remove("hide");
     var scoreInput = localStorage.getItem("score");
-    highScoreChartEl.textContent = scoreInput + " : " + scoreCounter;
+    highScoreChartEl.textContent = scoreInput;
 
 }
 
