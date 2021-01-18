@@ -74,7 +74,7 @@ endGameButton.addEventListener("click", seeScore)
 saveButtonEl.addEventListener('click',function(event){
     event.preventDefault();
    
-    var scoreInput = document.querySelector('#high-score').value;
+    var scoreInput = document.querySelector('#high-score').value + ": " + scoreCounter;
 
     if (scoreInput === '') {
         alert("Please type your initials!")
