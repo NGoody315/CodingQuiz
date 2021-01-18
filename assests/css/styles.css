@@ -35,6 +35,10 @@ body {
     text-align: center;
 }
 
+.container p {
+    text-align: center;
+}
+
 #question-container {
     max-width: 100%;
     width: 900x;

@@ -236,4 +236,6 @@ function viewHighScore (){
     nextButtonEl.classList.add('hide')
     highScoreContainer.classList.remove('hide')
     inputScoreEl.classList.remove('hide')
+
+    renderLastScoreInput();
 }
